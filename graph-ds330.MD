@@ -87,9 +87,9 @@
  => DEGREE OF VERTEX : number of edges associated to the vertex
  => IN DEGREE : number of edge which comes
 
-# Commands
+## Commands
 
-- [Create a graph](https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/graph/reference/system/refOption.html)
+#### Managing Graph
 
 ```cql
 
@@ -133,7 +133,7 @@ system.graph("KillrVideo").describe()
 system.graph("KillrVideo").drop()
 ```
 
--  SCHEMA
+#### Working with SCHEMA
 
 - Property Keys: unique key (name), data type, cardinatlitym ,meta-properties
 Vertex Labels
@@ -162,6 +162,45 @@ schema.edgeLabel("rated")
       .properties("year", "sample", "poduct")
       .connection("user", "movie") // from domain user to range movie
       .create();
+schema.edgeLabel("knows")
+      .single()
+      .connection("user", "movie") // from domain user to range movie
+      .connection("user", "person") // from domain user to range movie
+      .connection("person", "user") // from domain user to range movie
+      .create();
+      
+# Create Index : vertex, property or edge
+schema.edgeLabel("knows").describe()
+
+# Remove all 
+schema.clear()
+
+```
+#### Custom vertex ids
+
+Use default partition id
+Default is fetching communities/subgraph
+community_id +  member_id + label (vertex Type)
+```cql
+g.V().hasId("{~label=movie, member_id=0, communitu_id=4567}")
+```
+Cstuom Vertex ID
+partitionKey
+clusteringKey
+~label
+```cql
+schema.vertexLabel("user")
+      .partitionKey("userName")
+      .properties("p1","p2")
+      .create();
+      
+schema.vertexLabel("movie")
+      .partitionKey("year", "sdsd")
+      .clusteringKey("movieId)
+      .properties("p1","p2")
+      .create();
+      
+g.V().hasId("{~label=movie,userName=toto}")
 ```
 
 - Count Number of nodes
