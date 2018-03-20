@@ -93,22 +93,45 @@
  => Associated to a KeySpace
  => In reality multiple keyspaces underlying
 
-```cql
-system.graph("KillrVideo").ifNotExists().create()
-```
-
 - Listing amd Describing Graph
 
 - Dropping Graph
 
-
-QUICK START
 ```cql
 schema.config().option('graph.schema_mode').set('Development')
 schema.config().option('graph.allow_scan').set('true')
 ```
 
+[Create a graph](https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/graph/reference/system/refOption.html)
+
+```cql
+system.graph("KillrVideo").create()
+
+system.graph("KillrVideo").ifNotExists().create()
+
+# Define some options
+system.graph("KillrVideo")
+       .option("graph.replication_config")
+        .set("{'class' : 'NetworkTopologyStrategy', 'dc1' : 3 }").
+       .option("graph.system_replication_config")
+        .set("{'class' : 'NetworkTopologyStrategy', 'dc1' : 3 }")
+       .option("graph.schema_mode").set("Development")
+       .option("graph.allow_scan").set("false")
+       .option("graph.default_property_key_cardinality").set("multiple")
+       .option("graph.tx_groups.*.write_consistency").set("ALL").
+      .ifNotExists().create()
+
+# Change property later
+schema.config().option('graph.schema_mode').set('Development')
+schema.config().option('graph.allow_scan').set('true')    
+```
+
+Count Number of nodes
+```cql
 g.V().count()
+```
+Create a vertex
+juliaChild = graph.addVertex(label,'author', 'name','Julia Child', 'gender','F')
 
 
 
