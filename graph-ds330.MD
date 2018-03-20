@@ -89,27 +89,13 @@
 
 # Commands
 
-(1) - Creating Graph
- => Associated to a KeySpace
- => In reality multiple keyspaces underlying
-
-- Listing amd Describing Graph
-
-- Dropping Graph
+- [Create a graph](https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/graph/reference/system/refOption.html)
 
 ```cql
-schema.config().option('graph.schema_mode').set('Development')
-schema.config().option('graph.allow_scan').set('true')
-```
 
-[Create a graph](https://docs.datastax.com/en/datastax_enterprise/5.0/datastax_enterprise/graph/reference/system/refOption.html)
-
-```cql
+# --- Creations...
 system.graph("KillrVideo").create()
-
 system.graph("KillrVideo").ifNotExists().create()
-
-# Define some options
 system.graph("KillrVideo")
        .option("graph.replication_config")
         .set("{'class' : 'NetworkTopologyStrategy', 'dc1' : 3 }").
@@ -121,18 +107,80 @@ system.graph("KillrVideo")
        .option("graph.tx_groups.*.write_consistency").set("ALL").
       .ifNotExists().create()
 
-# Change property later
+# --- Edit properties (later)
 schema.config().option('graph.schema_mode').set('Development')
-schema.config().option('graph.allow_scan').set('true')    
+schema.config().option('graph.allow_scan').set('true')
+
+
 ```
 
-Count Number of nodes
+Under the hood multiple keyspaces are created : 
+- GraphName : Graph Data, verticesm edges, properties
+- GraphName_system : system datam schema, variables
+- GraphName_pvt: Partitioned vertices (huge number of edges) large vertices
+
+- Listing and describing Graphs
+
+```cql
+system.graphs()
+system.describe()
+system.graph("KillrVideo").describe()
+```
+
+- Dropping Graphs
+
+```cql
+system.graph("KillrVideo").drop()
+```
+
+-  SCHEMA
+
+- Property Keys: unique key (name), data type, cardinatlitym ,meta-properties
+Vertex Labels
+Edge Labels
+Indexes
+
+```cql
+schema.getClass();
+
+# Create Property Keys
+# Types : Numbers, booleamn Text, UUid, Timestamp, Duration, Point, Linestring, Polygon
+schema.propertyKey("year").Int().single.create();
+schema.propertyKey("sample").Text().multiple().create();
+schema.propertyKey("production").Text().multiple().
+   properties("source", "date").create();
+   
+# Create Vextex Labels (need unique LABEL)
+schema.vertexLabel("movie").properties("year", "sample", "poduct").create();
+# If possible reuse the property
+schema.vertexLabel("person").properties("year").create();
+
+# Edge Labels (label, cardinalitym propertyKeys, domain, range)
+# No multiple Properties
+schema.edgeLabel("rated")
+      .single()
+      .properties("year", "sample", "poduct")
+      .connection("user", "movie") // from domain user to range movie
+      .create();
+```
+
+- Count Number of nodes
+
 ```cql
 g.V().count()
 ```
-Create a vertex
+
+- Create a vertex
+
+```cql
 juliaChild = graph.addVertex(label,'author', 'name','Julia Child', 'gender','F')
+```
 
+- Op
 
+```cql
+commad
+```
 
- 
+ Multi-properties are associated with vertices
+  
