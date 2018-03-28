@@ -17,6 +17,7 @@
 - Liquibase : https://github.com/liquibase
 - JUNIT REPORTS
 - JUNIT CODE COVERAGE
+- CCM CCM (Cassandra Cluster Manager) https://github.com/riptano/ccm
 
 ### 1.2 - Integration Tests
 
