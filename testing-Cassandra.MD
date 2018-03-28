@@ -22,6 +22,9 @@
 
 - Cumcumber
 - failsafe plugin and integration test
+- Cassandra Distributed test https://github.com/apache/cassandra-dtest
+
+
 
 
 
