@@ -1,49 +1,79 @@
 
 # Building a Datastax Enterprise Application
 
-## 1 - Building CRUD APPLICATION
+### 1/10 - Designing your datamodel
 
-### 1/10 - Introduction to KillrVideos
+* Introduction to KillrVideo Application
+* ds220
+* Videos and Comments
+* Data Model (Chetboko model)
+* CRUD Operations
+* CQL files
 
-Videos and Comments
-Data Model (Chetboko model)
-CRUD Operations
+### 2/10 - Create your DAOs (CRUD)
 
-### 2/10 - Sample CRUD Application
+* Understanding drivers (dse)
+* PrepareStatement
+* Batchs Operation
+* Mapper & Accessors
+* Spring Data
 
-DAO
-Mapper
-Accessors
-Bacths Operation
+### 3/10 - Unit Testing
 
-## Testing you application 
-I - Testing Cassandra
+* Mocking woith PowerMock/Mockito
+* Embedded Cassandra : Cassandra-Unit
+* Embedded Cassandra : Achilles unit
+* Embedded Cassandra : Maven Cassandra Plugin : https://wiki.apache.org/cassandra/MavenPlugin
+* Embedded Cassandra : Simulacron https://github.com/riptano/simulacron
 
-### 1.1 - MOCK
+### 4/10 - Integration Testing
 
-### 1.1 - Unit tests
+* Liquibase https://github.com/liquibase
+* Scassandra https://github.com/scassandra/scassandra-server
+* CQLTest https://cassandra.apache.org/doc/latest/development/testing.html
+* CCM CCM (Cassandra Cluster Manager) https://github.com/riptano/ccm
+* Cassandra Distributed test https://github.com/apache/cassandra-dtest
+* Cumcumber
+* failsafe plugin and integration test
+* Docker Container `docker run -p 9042:9042 --name cass -d cassandra:3`
 
-- Mock access to DB : EASYMOCK, MOCKITO, PowerMock
+http://niels.nu/blog/2017/spring-cassandra-integration-tests.html
 
-- Need to use embedded Cassandra : achilles junit, Cassandra-Unit
-- Need to clean DB between each test
-- Testing several version with Liquibase
+### 5/10 - Designing you API
 
-- CQLTest        : https://cassandra.apache.org/doc/latest/development/testing.html
-- Cassandra Unit : https://github.com/jsevellec/cassandra-unit
-- Maven Cassandra Plugin : https://wiki.apache.org/cassandra/MavenPlugin
-- Liquibase : https://github.com/liquibase
-- CCM CCM (Cassandra Cluster Manager) https://github.com/riptano/ccm
+* REST API
+* GRPC API
+* GraphQL API
 
-### 1.2 - Integration Tests
+### 6/10 - Build UI and end-user applications
 
-- Cumcumber
-- failsafe plugin and integration test
-- Cassandra Distributed test https://github.com/apache/cassandra-dtest
-- Docker Container `docker run -p 9042:9042 --name cass -d cassandra:3`
+* kmow your queries
+* fail fast do not iterate on not working file
+* NodeJS here
 
-## Spark
+### 7/10 - Performance Testing
 
-## Graph
+* cassandra-stress
+* ccm
+* aws
+* gatling plugin
 
-## Analytics
+### 8/10 - Search
+
+* cassandra-stress
+* ccm
+* aws
+* gatling plugin
+
+### 9/10 - Graph
+
+* cassandra-stress
+* ccm
+* aws
+* gatling plugin
+
+### 10/10 - Analytics
+
+* Cassandra and time series
+* Spark
+
